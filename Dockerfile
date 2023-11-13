@@ -25,4 +25,4 @@ EXPOSE 4200
 
 # Iniciar la aplicación
 # Iniciar la aplicación
-CMD ["./node_modules/.bin/ng", "serve", "--host", "0.0.0.0"]
+CMD ["./node_modules/.bin/ng", "serve", "--host", "0.0.0.0","--poll","2500"]
