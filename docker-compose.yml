@@ -1,0 +1,9 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "4500:4200"
+    volumes:
+    - .:/app
+    - /app/node_modules   # Agrega esta línea para crear un volumen separado para node_modules
