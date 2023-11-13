@@ -10,6 +10,10 @@ COPY package*.json ./
 # Instalar las dependencias
 RUN rm -rf node_modules && npm ci
 
+# Después de instalar las dependencias
+RUN npm install -g @angular/cli
+
+
 # Copiar el resto de los archivos de la aplicación
 COPY . .
 
