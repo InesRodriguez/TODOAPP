@@ -10,18 +10,18 @@ import { CommonModule } from '@angular/common';
 })
 export class LabsComponent {
   welcome = 'Hola!';
-  task = ['Instalar angular CLI', 'Crear proyecto', 'Crear componentes'];
+  task = signal(['Instalar angular CLI', 'Crear proyecto', 'Crear componentes']);
   name = signal('Ines');
   age = 30;
   disabled = true;
   img = 'https://w3schools.com/howto/img_avatar.png';
 
-  person = {
+  person = signal({
     name: 'Ines',
     age: 30,
     disabled: true,
     avatar: 'https://w3schools.com/howto/img_avatar.png'
-  };
+  });
   clickHandler() {
     alert('Hola Mundo');
   }
@@ -31,9 +31,14 @@ export class LabsComponent {
     this.name.set(newValue);
     console.log(input.value);
   }
+  changeHandlerObjectName(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const newValue = input.value;
+    this.person.update((person) => ({ ...person, name: newValue }));
+    console.log(input.value);
+  }
   keydownHandler(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
     console.log(input.value);
-
   }
 }

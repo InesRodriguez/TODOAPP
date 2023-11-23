@@ -1,28 +1,50 @@
 <div class="container">
   <h1>Hola este es mi primer proyecto</h1>
   <h2>{{welcome}}</h2>
-  <ul *ngFor="let item of task">
-    <li>{{item}}</li>
+  <ul>
+    <li *ngFor="let item of task()">{{item}}</li>
   </ul>
   <hr>
   <h2>{{'Hola'.repeat(4)}}</h2>
-  <p>Hola soy {{name}} y mi edad es {{age}}</p>
+  <p>Hola soy {{name()}} y mi edad es {{age}}</p>
   <hr />
-  <img [src]="person.avatar" alt="">
-  <input type="number" [value]="person.age">
+  <img [src]="person().avatar" alt="">
+  <input type="number" [value]="person().age">
   <button [disabled]="disabled">Click me</button>
   <p>person: {{person.name}}</p>
   <hr>
   <button (click)="clickHandler()">click me</button>
   <button (dblclick)="clickHandler()">double click me</button>
   <p>(change)</p>
-  <input type="number" [value]="person.age" (change)="changeHandler($event)" />
+  <input type="number" [value]="person().age" />
   <p>(keydown)</p>
-  <input type="text" [value]="person.name" (keydown)="keydownHandler($event)">
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
   <p>(keydown enter)</p>
-  <input type="text" [value]="person.name" (keydown.enter)="clickHandler()">
+  <input type="text" [value]="person().name" (keydown.enter)="clickHandler()">
   <hr />
+  <ul>
+    <p> total: {{task().length}}</p>
+    <li *ngFor="let item of task(); index as i">
+      {{i}} {{item}}
+    </li>
+
+  </ul>
   <h1>Signals</h1>
-  <input type="text" [value]="name()" (change)="changeHandler($event)">
-  <p>name: {{name()}}</p>
+  <input type="text" [value]="person().name" (change)="changeHandlerObjectName($event)">
+  <p>name: {{person().name}}</p>
+  <hr />
+  <h1>"*ngIf"</h1>
+  <div *ngIf="person().name ==='Ines' && person().age > 18 else elseBlock">
+    My content
+  </div>
+  <ng-template #elseBlock>
+    Soy Ines y tengo 30
+  </ng-template>
+  <hr>
+  <diV [ngSwitch]="person().name">
+    <p *ngSwitchCase="'Ines'"> yo soy Ines</p>
+    <p *ngSwitchCase="'Pedro'"> yo soy Pedro</p>
+    <p *ngSwitchCase="'Rafael'"> yo soy Rafael</p>
+    <p *ngSwitchDefault> yo soy anonimo</p>
+  </diV>
 </div>
