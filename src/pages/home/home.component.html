@@ -3,7 +3,8 @@
     <div class="container">
       <h1>My Day</h1>
       <p>All my tasks in one place</p>
-      <input class="new-todo" placeholder="Type new todo" autofocus type="text" (change)="changeHandler($event)" />
+      <input class="new-todo" placeholder="Type new todo" autofocus type="text" [formControl]="newTaskCtrl"
+        (keydown.enter)="changeHandler()" />
     </div>
   </header>
   <div class="container todoapp-wrapper">
@@ -16,13 +17,15 @@
     <section class="main">
 
       <ul class="todo-list">
-        <li *ngFor="let task of task(); index as i">
+        <li (dblclick)="updateTaskEditingMode(i)" *ngFor="let task of task(); index as i"
+          [class.completed]="task.completed"
+          [class.editing]="task.editing">
           <div class="view">
             <input class="toggle" type="checkbox" (click)="updateTask(i)" [checked]="task.completed" />
             <label>{{task.title}}</label>
             <button class="destroy" (click)="deleteTask(i)"></button>
           </div>
-          <input class="edit" value="Buy a unicorn" />
+          <input class="edit" (keydown.enter)="updateTaskText(i, $event)" [value]="task.title" />
         </li>
         <!-- <li class="completed">
             <div class="view">
@@ -55,7 +58,7 @@
       <!-- This should be `0 items left` by default -->
       <span class="todo-count"><strong>{{task().length}}</strong>
         <span *ngIf="task().length <=1 else plural">item</span>
-          <ng-template #plural>items</ng-template>
+        <ng-template #plural>items</ng-template>
       </span>
       <!-- Remove this if you don't implement routing -->
       <ul class="filters">
