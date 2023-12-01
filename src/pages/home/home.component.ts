@@ -40,12 +40,18 @@ export class HomeComponent implements OnInit {
     }
     this.trackTasks();
   }
+  setTasksLocalStorage() {
+    const tasks = this.tasks();
+    console.log(tasks);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
   trackTasks() {
-    effect(() => {
-      const tasks = this.tasks();
-      console.log(tasks);
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-    },{injector:this.injector});
+    effect(
+      () => {
+        this.setTasksLocalStorage();
+      },
+      { injector: this.injector }
+    );
   }
   changeHandler() {
     if (this.newTaskCtrl.valid) {
@@ -59,21 +65,22 @@ export class HomeComponent implements OnInit {
   addTask(task: string) {
     const newTask = { id: Date.now(), title: task, completed: false };
     this.tasks.update((tasks) => [...tasks, newTask]);
+   // this.setTaskLocalStorage();
   }
-  deleteTask(index: number) {
-    this.tasks.update((tasks) => tasks.filter((_, i) => i !== index));
+  deleteTask(id: number) {
+    this.tasks.update((tasks) => tasks.filter((_, i) => _.id !== id));
   }
-  updateTask(index: number) {
-    this.tasks.update((tasks) => tasks.map((task, i) => (i === index ? { ...task, completed: !task.completed } : task)));
+  updateTask(id: number) {
+    this.tasks.update((tasks) => tasks.map((task, i) => (task.id === id ? { ...task, completed: !task.completed } : task)));
   }
-  updateTaskEditingMode(index: number) {
+  updateTaskEditingMode(id: number) {
     this.tasks.update((tasks) =>
-      tasks.map((task, i) => (i === index ? { ...task, editing: !task.editing } : { ...task, editing: false }))
+      tasks.map((task, i) => (task.id === id ? { ...task, editing: !task.editing } : { ...task, editing: false }))
     );
   }
-  updateTaskText(index: number, event: Event) {
+  updateTaskText(id: number, event: Event) {
     const input = event.target as HTMLInputElement;
-    this.tasks.update((tasks) => tasks.map((task, i) => (i === index ? { ...task, title: input.value, editing: false } : task)));
+    this.tasks.update((tasks) => tasks.map((task, i) => (task.id === id ? { ...task, title: input.value, editing: false } : task)));
   }
   changeFilter(filter: TaskState) {
     this.filter.set(filter);
