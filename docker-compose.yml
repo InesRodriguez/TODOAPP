@@ -4,6 +4,7 @@ services:
     build: .
     ports:
       - "4500:4200"
+      - "9005:9005"
     volumes:
     - .:/app
     - /app/node_modules   # Agrega esta línea para crear un volumen separado para node_modules

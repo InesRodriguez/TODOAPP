@@ -13,6 +13,9 @@ RUN rm -rf node_modules && npm ci
 # Después de instalar las dependencias
 RUN npm install -g @angular/cli
 
+# Instalar firebase tools
+
+RUN npm install -g firebase-tools
 
 # Copiar el resto de los archivos de la aplicación
 COPY . .
@@ -22,6 +25,10 @@ RUN npm install esbuild
 
 # Exponer el puerto 4200
 EXPOSE 4200
+
+# Exponer el puerto 9005
+EXPOSE 9005
+
 
 # Iniciar la aplicación
 # Iniciar la aplicación
