@@ -1,6 +1,6 @@
 # Todoapp
 
-Aplicación de notas desarrollada en angular 17 con fines prácticos.
+Aplicación de notas desarrollada en angular 17 con fines prácticos (ver demo)
 
 ## Demo 
 https://mydayapp-d5c76.web.app/
