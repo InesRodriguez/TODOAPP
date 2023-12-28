@@ -1,6 +1,9 @@
 # Todoapp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.0.
+Aplicación de notas desarrollada en angular 17 con fines prácticos.
+
+## Demo 
+https://mydayapp-d5c76.web.app/
 
 ## Development server
 
